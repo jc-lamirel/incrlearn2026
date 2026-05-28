@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncrLearn 2026 — ICDM Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628;
+      --blue: #1a3a6e;
+      --accent: #e8b84b;
+      --accent2: #4a90d9;
+      --light: #f4f6fa;
+      --text: #1a2340;
+      --muted: #5a6a8a;
+      --border: #d0d8e8;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      padding: 1rem 0;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--white);
+      font-weight: 300;
+    }
+
+    nav {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 1.1rem 0.85rem;
+      transition: color 0.2s, background 0.2s;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -3px;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2347 60%, #162e58 100%);
+      color: var(--white);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.03) 40px);
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 800px;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-sub strong {
+      color: var(--white);
+    }
+
+    .hero-meta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .hero-meta-item .label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .hero-meta-item .value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* ── LAYOUT ─────────────────────────────────────────── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 3.5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    /* ── SECTION HEADERS ────────────────────────────────── */
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin: 1.75rem 0 0.5rem;
+    }
+
+    h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 1.25rem 0 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    p { margin-bottom: 0.85rem; color: var(--text); }
+
+    ul, ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li { margin-bottom: 0.3rem; }
+
+    /* ── HOME SECTION ───────────────────────────────────── */
+    .intro-box {
+      background: var(--white);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--blue);
+      font-weight: 300;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .topic-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent2);
+      padding: 1.5rem;
+    }
+
+    .topic-card h4 {
+      color: var(--accent2);
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .topic-card ul {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    .topic-card li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .past-editions {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.75rem;
+      margin-top: 2rem;
+    }
+
+    .past-editions h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .past-editions ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .past-editions li {
+      padding: 0.3rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .past-editions li:last-child { border-bottom: none; }
+
+    .past-editions li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── DATES TABLE ────────────────────────────────────── */
+    .dates-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .dates-table td {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    .dates-table td:first-child {
+      font-weight: 600;
+      color: var(--navy);
+      width: 60%;
+    }
+
+    .dates-table td:last-child {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent2);
+      font-weight: 600;
+    }
+
+    .dates-table tr:last-child td { border-bottom: none; }
+
+    .dates-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── ORGANIZER CARDS ────────────────────────────────── */
+    .org-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent2);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .org-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.2rem;
+      font-size: 1.05rem;
+      color: var(--navy);
+    }
+
+    .org-card .role {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    .org-card p {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .org-card .links {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    .org-card .links a {
+      color: var(--accent2);
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+
+    .org-card .links a:hover { text-decoration: underline; }
+
+    /* ── GUESTS ─────────────────────────────────────────── */
+    .guest-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .guest-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.15rem;
+      font-size: 1.05rem;
+      color: var(--navy);
+    }
+
+    .guest-card .affil {
+      font-size: 0.85rem;
+      color: var(--accent2);
+      font-style: italic;
+      margin-bottom: 0.65rem;
+    }
+
+    .guest-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── PC TABLE ───────────────────────────────────────── */
+    .pc-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      font-size: 0.88rem;
+    }
+
+    .pc-table thead th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .pc-table tbody td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .pc-table tbody tr:hover { background: #f0f4fb; }
+    .pc-table tbody tr:last-child td { border-bottom: none; }
+
+    /* ── SUBMISSION ─────────────────────────────────────── */
+    .sub-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .sub-block h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: var(--navy);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .sub-block p { font-size: 0.92rem; margin-bottom: 0.5rem; }
+    .sub-block p:last-child { margin-bottom: 0; }
+
+    .highlight-box {
+      background: #fffbf0;
+      border: 1.5px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.92rem;
+    }
+
+    /* ── CONTACTS ───────────────────────────────────────── */
+    .contact-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+    }
+
+    .contact-table thead th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .contact-table tbody td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+
+    .contact-table tbody tr:last-child td { border-bottom: none; }
+
+    .contact-table a { color: var(--accent2); text-decoration: none; }
+    .contact-table a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 1.5rem 2rem;
+      font-size: 0.8rem;
+      margin-top: 3rem;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 700px) {
+      .header-inner { flex-direction: column; padding: 0.5rem 1rem; gap: 0; }
+      nav a { padding: 0.6rem 0.5rem; font-size: 0.72rem; }
+      .hero { padding: 3rem 1rem 2.5rem; }
+      section { padding: 2.5rem 1rem; }
+      .topics-grid { grid-template-columns: 1fr; }
+      .hero-meta { gap: 1rem; }
+      .pc-table, .contact-table { font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">IncrLearn<span> 2026</span></div>
+    <nav>
+      <a href="#home" class="active" onclick="show('home',this)">Home</a>
+      <a href="#dates" onclick="show('dates',this)">Dates</a>
+      <a href="#organization" onclick="show('organization',this)">Organization</a>
+      <a href="#pc" onclick="show('pc',this)">Program Committee</a>
+      <a href="#guests" onclick="show('guests',this)">Invited Speakers</a>
+      <a href="#submission" onclick="show('submission',this)">Submission</a>
+      <a href="#contacts" onclick="show('contacts',this)">Contacts</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">10th Edition · ICDM 2026</div>
+    <h1>IncrLearn — Incremental and Continual Learning<br><em>in the Age of Large-Scale AI</em></h1>
+    <p class="hero-sub">In Conjunction with the <strong>25th IEEE International Conference on Data Mining (ICDM 2026)</strong></p>
+    <p class="hero-sub">Workshop Date: <strong>November 12, 2026</strong> — Location TBA</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Submission Deadline</span>
+        <span class="value">August 20, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Notification</span>
+        <span class="value">September 18, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Camera-Ready</span>
+        <span class="value">October 6, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Proceedings</span>
+        <span class="value">IEEE Xplore</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOME ══════════════════════════════════════════════ -->
+<section id="home" class="active">
+  <div class="intro-box">
+    <em>"How do you teach a system that never stops learning, on data that never stops changing?"</em>
+    This question has defined the IncrLearn workshop series since its inception — and it has never been more urgent than today.
+  </div>
+
+  <p>IncrLearn addresses the full spectrum of methods for learning from time-varying, streaming, and large-scale dynamic data: incremental classification and clustering, concept drift management, novelty detection, active and continual learning. The rapid rise of large language models (LLMs) and foundation models has brought these challenges to the center of AI research: catastrophic forgetting, knowledge editing (ROME, MEMIT), continual pre-training, parameter-efficient adaptation (LoRA, adapters), streaming RAG with dynamic knowledge bases, and concept drift in LLM-based pipelines are now among the most discussed open problems in the field — and they are structurally identical to the problems this workshop has always addressed.</p>
+
+  <p><strong>IncrLearn 2026</strong> places dedicated emphasis on this convergence, welcoming both the classical incremental learning community and researchers working on continual learning for LLMs and foundation models.</p>
+
+  <h3>Core Constraints of Incremental Learning</h3>
+  <p>All incremental learning algorithms — whether applied to data streams or to large-scale models — share four fundamental constraints:</p>
+  <ol>
+    <li>Distribution shifts must be detected and handled;</li>
+    <li>The system must operate without access to all future data;</li>
+    <li>New knowledge must be integrated without intensive reprocessing of past data (the root of catastrophic forgetting);</li>
+    <li>Updated behaviors must be available promptly without degrading prior knowledge.</li>
+  </ol>
+
+  <h3>Topics of Interest</h3>
+  <div class="topics-grid">
+    <div class="topic-card">
+      <h4>A — Continual &amp; Lifelong Learning for LLMs</h4>
+      <ul>
+        <li>Catastrophic forgetting prevention in transformers</li>
+        <li>Continual pre-training on evolving corpora</li>
+        <li>Knowledge editing (ROME, MEMIT)</li>
+        <li>Parameter-efficient adaptation (LoRA, adapters)</li>
+        <li>Incremental LLM alignment and continual RLHF</li>
+        <li>Streaming and incremental RAG</li>
+        <li>Concept drift in LLM-based pipelines</li>
+        <li>Incremental multimodal learning</li>
+        <li>Lifelong learning for LLM-based agents</li>
+      </ul>
+    </div>
+    <div class="topic-card">
+      <h4>B — Classical Incremental &amp; Adaptive Methods</h4>
+      <ul>
+        <li>Novelty detection algorithms and techniques</li>
+        <li>Semi-supervised and active learning</li>
+        <li>Adaptive clustering (hierarchical, k-means, graph)</li>
+        <li>Adaptive neural methods and Hebbian learning</li>
+        <li>Probabilistic and Bayesian online learning</li>
+        <li>Distributed and federated incremental learning</li>
+        <li>Evolving classifier ensembles and drift detection</li>
+        <li>Incremental topic modeling</li>
+        <li>Learning on data streams and time series</li>
+      </ul>
+    </div>
+    <div class="topic-card">
+      <h4>C — Application Domains</h4>
+      <ul>
+        <li>Continual LLM adaptation in production</li>
+        <li>Incremental knowledge base construction for RAG</li>
+        <li>Hallucination and bias drift monitoring</li>
+        <li>Lifelong multi-agent systems</li>
+        <li>Evolving social network analysis</li>
+        <li>Dynamic process control and anomaly detection</li>
+        <li>Adaptive recommender systems</li>
+        <li>Scientometrics and webometrics</li>
+        <li>Genomics, bioinformatics and IoT</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="past-editions">
+    <h3>Past Editions</h3>
+    <ul>
+      <li>IncrLearn, ICDM 2024 — December 9, 2024, Abu Dhabi, UAE</li>
+      <li>IncrLearn, ICDM 2023 — December 1, 2023, Shanghai, China</li>
+      <li>IncrLearn, ICDM 2022 — December 2, 2022, Orlando, Florida, USA</li>
+      <li>IncrLearn, ICDM 2021 — December 7, 2021 (Online)</li>
+      <li>IncrLearn, ICDM 2020 — November 17, 2020 (Online)</li>
+      <li>EvoLearn 2019, CEC 2019, Wellington, New Zealand</li>
+      <li>IClaNov, ICDM 2014, Shenzhen, China</li>
+      <li>IClaNov, ICDM 2013, Dallas, TX, USA</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ DATES ══════════════════════════════════════════════ -->
+<section id="dates">
+  <div class="section-label">Calendar</div>
+  <h2>Important Dates — IncrLearn 2026</h2>
+  <table class="dates-table">
+    <tbody>
+      <tr>
+        <td>Paper submission deadline</td>
+        <td>August 20, 2026</td>
+      </tr>
+      <tr>
+        <td>Notification of acceptance</td>
+        <td>September 18, 2026</td>
+      </tr>
+      <tr>
+        <td>Camera-ready deadline</td>
+        <td>October 6, 2026</td>
+      </tr>
+      <tr>
+        <td>Workshop date</td>
+        <td>November 12, 2026</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="dates-note">All deadlines are at <strong>11:59 PM AoE</strong> (Anywhere on Earth).</p>
+</section>
+
+<!-- ═══ ORGANIZATION ════════════════════════════════════════ -->
+<section id="organization">
+  <div class="section-label">Organizers</div>
+  <h2>Organization — IncrLearn 2026</h2>
+
+  <div class="org-card">
+    <h3>Jean-Charles Lamirel</h3>
+    <div class="role">Professor (MCF-HDR) — IUT Robert Schuman, Université de Strasbourg · SYNALP Team, LORIA (CNRS/Inria/UL)</div>
+    <p>Jean-Charles Lamirel obtained his PhD in Computer Science (1995) and HDR (2010). He is the founding and lead organizer of the IncrLearn workshop series, which he has driven continuously since the first ICDM edition in 2020. He teaches at the University of Strasbourg and as invited Sea-Sky Professor at Dalian University (China). His research covers textual data mining, neural clustering, feature maximization metrics, evolving data mining, NLP, and LLM-based topic modeling and Retrieval-Augmented Generation with evolving knowledge bases. Author of 180+ international contributions; board member of Collnet Journal; program committee of ICDM, ICTAI, IJCNN.</p>
+    <p class="links">
+      <a href="mailto:lamirel@loria.fr">lamirel@loria.fr</a>
+      <a href="https://www.researchgate.net/profile/J-C_Lamirel" target="_blank">ResearchGate</a>
+    </p>
+  </div>
+
+  <div class="org-card">
+    <h3>Pascal Cuxac</h3>
+    <div class="role">Research Engineer (IR) — INIST / CNRS, Vandœuvre lès Nancy, France</div>
+    <p>Pascal Cuxac obtained his PhD in Geological Engineering (1991) and joined CNRS in 1993. His research focuses on classification methods for bibliographic corpora and incremental unsupervised clustering, with recent work on large-scale text processing pipelines. Author of 71+ publications, 7 best paper awards; program committees of IJCNN, IEEE CIS, IEA/AIE, and IMMM.</p>
+    <p class="links">
+      <a href="mailto:pascal.cuxac@inist.fr">pascal.cuxac@inist.fr</a>
+      <a href="https://www.researchgate.net/profile/Pascal_Cuxac" target="_blank">ResearchGate</a>
+    </p>
+  </div>
+
+  <div class="org-card">
+    <h3>Manuel Roveri</h3>
+    <div class="role">Associate Professor — Politecnico di Milano, Italy</div>
+    <p>Manuel Roveri received his PhD in Computer Engineering from Politecnico di Milano (2007) and was Visiting Researcher at Imperial College London (2011). His research covers Embedded and Edge AI, Tiny Machine and Deep Learning, Learning in nonstationary environments, and on-device continual adaptation of compact language models. Senior Member of IEEE; 100+ publications; recipient of the 2018 IEEE CIM Outstanding Paper Award.</p>
+    <p class="links">
+      <a href="mailto:manuel.roveri@polimi.it">manuel.roveri@polimi.it</a>
+      <a href="https://roveri.faculty.polimi.it" target="_blank">roveri.faculty.polimi.it</a>
+    </p>
+  </div>
+
+  <div class="org-card">
+    <h3>Albert Bifet</h3>
+    <div class="role">Professor — Université Paris-Saclay / University of Waikato</div>
+    <p>Albert Bifet is Professor at IP Paris and the University of Waikato. Co-author of <em>Machine Learning from Data Streams</em> (MIT Press) and leader of the MOA, scikit-multiflow and Apache SAMOA frameworks for online learning. Member of the ECML-PKDD Steering Committee.</p>
+    <p class="links">
+      <a href="mailto:albert.bifet@telecom-paristech.fr">albert.bifet@telecom-paristech.fr</a>
+      <a href="https://albertbifet.com" target="_blank">albertbifet.com</a>
+    </p>
+  </div>
+
+  <div class="org-card">
+    <h3>Barbara Hammer</h3>
+    <div class="role">Professor — Faculty of Technology, Bielefeld University, Germany</div>
+    <p>Barbara Hammer is Professor at Bielefeld University. Her research spans machine learning with a focus on learning interpretable models, learning for structured data, learning with drift and transfer, self-organization, metric and relevance learning, nonlinear dimensionality reduction, and learning theory.</p>
+    <p class="links">
+      <a href="mailto:bhammer@techfak.uni-bielefeld.de">bhammer@techfak.uni-bielefeld.de</a>
+      <a href="https://techfak.uni-bielefeld.de/~bhammer" target="_blank">techfak.uni-bielefeld.de/~bhammer</a>
+    </p>
+  </div>
+
+  <div class="org-card">
+    <h3>Mykola Pechenizkiy</h3>
+    <div class="role">Professor — Department of Computer Science, TU/e Eindhoven, Netherlands</div>
+    <p>Mykola Pechenizkiy is Professor at TU/e. His research spans data science, knowledge discovery, responsible analytics (fairness, accountability, transparency), context-aware predictive analytics, concept drift and reoccurring context handling, and analytics on evolving networks.</p>
+    <p class="links">
+      <a href="mailto:m.pechenizkiy@tue.nl">m.pechenizkiy@tue.nl</a>
+      <a href="https://win.tue.nl/~mpechen" target="_blank">win.tue.nl/~mpechen</a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ PROGRAM COMMITTEE ════════════════════════════════════ -->
+<section id="pc">
+  <div class="section-label">Reviewers</div>
+  <h2>Program Committee — IncrLearn 2026 <small style="font-size:0.65em;font-weight:400;color:var(--muted)">(Tentative)</small></h2>
+  <table class="pc-table">
+    <thead>
+      <tr>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Institution</th>
+        <th>Country</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Abou-Nasr</td><td>Mahmoud</td><td>Ford Motor Company</td><td>USA</td></tr>
+      <tr><td>Albatineh</td><td>Ahmed N.</td><td>Florida Int. U. Miami</td><td>USA</td></tr>
+      <tr><td>Alippi</td><td>Cesare</td><td>Politecnico di Milano</td><td>Italy</td></tr>
+      <tr><td>Arredondo</td><td>Tomas</td><td>U.T.F.S.M. Valparaíso</td><td>Chile</td></tr>
+      <tr><td>Bennani</td><td>Younes</td><td>LIPN, Paris</td><td>France</td></tr>
+      <tr><td>Bifet</td><td>Albert</td><td>U. of Waikato / IP Paris</td><td>NZ / France</td></tr>
+      <tr><td>Bondu</td><td>Alexis</td><td>EDF R&amp;D</td><td>France</td></tr>
+      <tr><td>Cabanac</td><td>Guillaume</td><td>IRIT</td><td>France</td></tr>
+      <tr><td>Chawla</td><td>Nitesh</td><td>Notre Dame University</td><td>USA</td></tr>
+      <tr><td>Chen</td><td>Chaomei</td><td>Drexel University</td><td>USA</td></tr>
+      <tr><td>Cuxac</td><td>Pascal</td><td>INIST-CNRS</td><td>France</td></tr>
+      <tr><td>De Lange</td><td>Matthias</td><td>KU Leuven</td><td>Belgium</td></tr>
+      <tr><td>Diallo</td><td>Abdoulaye</td><td>UQAM Montreal</td><td>Canada</td></tr>
+      <tr><td>Escalante</td><td>Hugo Jair</td><td>INAOE</td><td>Mexico</td></tr>
+      <tr><td>García-Rodríguez</td><td>José</td><td>University of Alicante</td><td>Spain</td></tr>
+      <tr><td>Glanzel</td><td>Wolfgang</td><td>KU Leuven</td><td>Belgium</td></tr>
+      <tr><td>Grozavu</td><td>Nistor</td><td>LIPN, Paris</td><td>France</td></tr>
+      <tr><td>Hammer</td><td>Barbara</td><td>University of Bielefeld</td><td>Germany</td></tr>
+      <tr><td>Kumova</td><td>Bora I.</td><td>Izmir University</td><td>Turkey</td></tr>
+      <tr><td>Kuntz-Cosperec</td><td>Pascale</td><td>Polytech'Nantes</td><td>France</td></tr>
+      <tr><td>Lallich</td><td>Stéphane</td><td>University of Lyon 2</td><td>France</td></tr>
+      <tr><td>Lamirel</td><td>Jean-Charles</td><td>SYNALP – LORIA / U. Strasbourg</td><td>France</td></tr>
+      <tr><td>Lebbah</td><td>Mustapha</td><td>LIPN, Paris</td><td>France</td></tr>
+      <tr><td>Lemaire</td><td>Vincent</td><td>Orange Labs</td><td>France</td></tr>
+      <tr><td>Lenca</td><td>Philippe</td><td>Telecom Bretagne</td><td>France</td></tr>
+      <tr><td>Li</td><td>Bin</td><td>UTS, Sydney</td><td>Australia</td></tr>
+      <tr><td>Lomonaco</td><td>Vincenzo</td><td>University of Pisa</td><td>Italy</td></tr>
+      <tr><td>Nugent</td><td>Rebecca</td><td>Carnegie Mellon University</td><td>USA</td></tr>
+      <tr><td>Pechenizkiy</td><td>Mykola</td><td>TU/e Eindhoven</td><td>Netherlands</td></tr>
+      <tr><td>Popescu</td><td>Florin</td><td>Fraunhofer Institute</td><td>Germany</td></tr>
+      <tr><td>Roveri</td><td>Manuel</td><td>Politecnico di Milano</td><td>Italy</td></tr>
+      <tr><td>Scialom</td><td>Thomas</td><td>Meta AI Research</td><td>USA</td></tr>
+      <tr><td>Tamir</td><td>Dan</td><td>Texas State University</td><td>USA</td></tr>
+      <tr><td>Torre</td><td>Fabien</td><td>University of Lille 3</td><td>France</td></tr>
+      <tr><td>Urvoy</td><td>Tanguy</td><td>Orange Labs</td><td>France</td></tr>
+      <tr><td>Wang</td><td>Zhen</td><td>Ohio State University</td><td>USA</td></tr>
+      <tr><td>Zhou</td><td>Zhi-Hua</td><td>Nanjing University</td><td>China</td></tr>
+      <tr><td>Zhu</td><td>Xingquan</td><td>UTS, Sydney</td><td>Australia</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══ INVITED SPEAKERS ═════════════════════════════════════ -->
+<section id="guests">
+  <div class="section-label">Keynotes</div>
+  <h2>Invited Speakers 2026 <small style="font-size:0.65em;font-weight:400;color:var(--muted)">(Tentative)</small></h2>
+  <p style="margin-bottom:1.75rem">For this edition, we are assembling a panel of specialists with complementary expertise spanning classical incremental learning, continual learning for foundation models, and responsible/explainable AI for evolving systems.</p>
+
+  <div class="guest-card">
+    <h3>Elena Mocanu</h3>
+    <div class="affil">University of Twente, Netherlands</div>
+    <p>Expert in sparse and dynamic neural network architectures, evolving deep learning, and learning from data streams. Invited speaker at IncrLearn 2024.</p>
+  </div>
+
+  <div class="guest-card">
+    <h3>Zhi-Hua Zhou</h3>
+    <div class="affil">Nanjing University, China</div>
+    <p>Professor and Director of the LAMDA Group. Landmark contributions to ensemble learning, multi-label learning, and semi-supervised learning. h-index &gt; 80.</p>
+  </div>
+
+  <div class="guest-card">
+    <h3>Vincenzo Lomonaco</h3>
+    <div class="affil">University of Pisa, Italy</div>
+    <p>One of the leading figures in continual learning research, co-founder of the ContinualAI community and the CORe50 benchmark, and expert in catastrophic forgetting prevention in deep neural networks and foundation models.</p>
+  </div>
+
+  <div class="guest-card">
+    <h3>Matthias De Lange</h3>
+    <div class="affil">KU Leuven, Belgium</div>
+    <p>Specialist in continual learning and rehearsal-based methods, with a focus on class-incremental learning, replay strategies, and benchmark evaluation for deep models.</p>
+  </div>
+
+  <div class="guest-card">
+    <h3>Thomas Scialom</h3>
+    <div class="affil">Meta AI Research, USA</div>
+    <p>Researcher at the intersection of NLP and continual learning, with contributions to knowledge editing, RLHF-based alignment, and incremental adaptation of large language models.</p>
+  </div>
+
+  <div class="guest-card">
+    <h3>Cesare Alippi</h3>
+    <div class="affil">Politecnico di Milano, Italy</div>
+    <p>Fellow of the IEEE and ELLIS, expert in learning in non-stationary environments, change point detection, and embedded intelligence for IoT and edge AI systems.</p>
+  </div>
+
+  <div class="guest-card">
+    <h3>Nitesh Chawla</h3>
+    <div class="affil">University of Notre Dame, USA</div>
+    <p>Expert in machine learning for complex and imbalanced data, network science, and adaptive learning systems. Known for the SMOTE algorithm and significant contributions to data mining methodology.</p>
+  </div>
+</section>
+
+<!-- ═══ SUBMISSION ════════════════════════════════════════════ -->
+<section id="submission">
+  <div class="section-label">Instructions</div>
+  <h2>Submission Guidelines — IncrLearn 2026</h2>
+
+  <div class="highlight-box">
+    <strong>Submission link:</strong> To be announced via the ICDM 2026 workshop submission system.
+  </div>
+
+  <div class="sub-block">
+    <h3>Review Process</h3>
+    <p>Papers will be <strong>triple-blind reviewed</strong> following the ICDM 2026 workshop submission guidelines. Accepted papers will appear in the <strong>ICDM workshops proceedings (IEEE Xplore)</strong>.</p>
+  </div>
+
+  <div class="sub-block">
+    <h3>Paper Format</h3>
+    <p>Authors must follow the official IEEE ICDM 2026 formatting guidelines. Papers must be anonymized for triple-blind review (no author names, affiliations, or acknowledgements).</p>
+  </div>
+
+  <div class="sub-block">
+    <h3>Associated Journal — Special Issue</h3>
+    <p>Authors of the best papers will be invited to submit extended versions to a dedicated <strong>Special Issue of a high-impact international journal</strong> (to be confirmed), focused on Incremental and Evolutive Learning, co-edited by the workshop organizers.</p>
+    <p>For the 2026 edition, a specific section of the special issue will be dedicated to <strong>continual learning for LLMs and foundation models</strong>.</p>
+  </div>
+
+  <div class="sub-block">
+    <h3>Registration</h3>
+    <p>At least one author of each accepted paper must register for the workshop. Registration is handled through the main ICDM 2026 conference registration system.</p>
+  </div>
+</section>
+
+<!-- ═══ CONTACTS ══════════════════════════════════════════════ -->
+<section id="contacts">
+  <div class="section-label">Get in Touch</div>
+  <h2>Contacts — IncrLearn 2026</h2>
+  <table class="contact-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Institution</th>
+        <th>Email</th>
+        <th>Website</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Jean-Charles Lamirel</strong></td>
+        <td>SYNALP – LORIA<br>Université de Strasbourg<br>54506 Vandœuvre lès Nancy, France</td>
+        <td><a href="mailto:lamirel@loria.fr">lamirel@loria.fr</a></td>
+        <td><a href="https://www.researchgate.net/profile/J-C_Lamirel" target="_blank">ResearchGate</a></td>
+      </tr>
+      <tr>
+        <td><strong>Pascal Cuxac</strong></td>
+        <td>R&amp;D – INIST – CNRS<br>54519 Vandœuvre lès Nancy Cedex, France</td>
+        <td><a href="mailto:pascal.cuxac@inist.fr">pascal.cuxac@inist.fr</a></td>
+        <td><a href="https://www.researchgate.net/profile/Pascal_Cuxac" target="_blank">ResearchGate</a></td>
+      </tr>
+      <tr>
+        <td><strong>Manuel Roveri</strong></td>
+        <td>Politecnico di Milano<br>I-20133 Milano, Italy</td>
+        <td><a href="mailto:manuel.roveri@polimi.it">manuel.roveri@polimi.it</a></td>
+        <td><a href="https://roveri.faculty.polimi.it" target="_blank">roveri.faculty.polimi.it</a></td>
+      </tr>
+      <tr>
+        <td><strong>Albert Bifet</strong></td>
+        <td>Télécom Paris – IP Paris<br>91120 Palaiseau, France</td>
+        <td><a href="mailto:albert.bifet@telecom-paristech.fr">albert.bifet@telecom-paristech.fr</a></td>
+        <td><a href="https://albertbifet.com" target="_blank">albertbifet.com</a></td>
+      </tr>
+      <tr>
+        <td><strong>Barbara Hammer</strong></td>
+        <td>Bielefeld University<br>33615 Bielefeld, Germany</td>
+        <td><a href="mailto:bhammer@techfak.uni-bielefeld.de">bhammer@techfak.uni-bielefeld.de</a></td>
+        <td><a href="https://techfak.uni-bielefeld.de/~bhammer" target="_blank">techfak.uni-bielefeld.de/~bhammer</a></td>
+      </tr>
+      <tr>
+        <td><strong>Mykola Pechenizkiy</strong></td>
+        <td>TU/e Eindhoven<br>5600 MB Eindhoven, Netherlands</td>
+        <td><a href="mailto:m.pechenizkiy@tue.nl">m.pechenizkiy@tue.nl</a></td>
+        <td><a href="https://win.tue.nl/~mpechen" target="_blank">win.tue.nl/~mpechen</a></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  IncrLearn 2026 — 10th ICDM Workshop on Incremental and Continual Learning &nbsp;|&nbsp;
+  <a href="https://icdm2026.org/" target="_blank">ICDM 2026</a> &nbsp;|&nbsp;
+  Contact: <a href="mailto:lamirel@loria.fr">lamirel@loria.fr</a>
+</footer>
+
+<script>
+  function show(id, el) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return false;
+  }
+
+  // Handle direct URL hash on load
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#','');
+    if (hash) {
+      const el = document.querySelector(`nav a[href="#${hash}"]`);
+      if (el) show(hash, el);
+    }
+  });
+</script>
+
+</body>
+</html>

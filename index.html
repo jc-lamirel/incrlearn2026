@@ -552,12 +552,22 @@
   </div>
 </header>
 
+<div class="city-banner">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,80 L30,80 L30,40 L40,40 L40,20 L50,20 L50,40 L60,40 L60,30 L65,30 L65,10 L70,10 L70,30 L75,30 L75,40 L90,40 L90,60 L100,60 L100,45 L105,45 L105,35 L110,35 L110,45 L115,45 L115,60 L130,60 L130,50 L140,50 L140,25 L143,25 L143,15 L146,15 L146,25 L149,25 L149,50 L160,50 L160,55 L175,55 L175,35 L180,35 L180,20 L183,20 L183,10 L186,10 L186,20 L189,20 L189,35 L194,35 L194,55 L210,55 L210,65 L230,65 L230,45 L235,45 L235,30 L240,30 L240,45 L245,45 L245,65 L260,65 L260,50 L270,50 L270,30 L275,30 L275,20 L280,20 L280,30 L285,30 L285,50 L300,50 L300,60 L320,60 L320,40 L325,40 L325,25 L330,25 L330,40 L335,40 L335,60 L360,60 L360,70 L380,70 L380,50 L390,50 L390,35 L395,35 L395,25 L400,25 L400,35 L405,35 L405,50 L420,50 L420,60 L440,60 L440,45 L450,45 L450,30 L455,30 L455,15 L460,15 L460,30 L465,30 L465,45 L480,45 L480,65 L500,65 L500,50 L510,50 L510,35 L515,35 L515,50 L520,50 L520,65 L540,65 L540,55 L560,55 L560,40 L565,40 L565,25 L570,25 L570,40 L575,40 L575,55 L600,55 L600,65 L620,65 L620,45 L630,45 L630,30 L635,30 L635,45 L640,45 L640,65 L660,65 L660,55 L680,55 L680,40 L690,40 L690,25 L695,25 L695,40 L700,40 L700,55 L720,55 L720,60 L740,60 L740,45 L750,45 L750,30 L755,30 L755,45 L760,45 L760,60 L780,60 L780,70 L800,70 L800,55 L810,55 L810,35 L815,35 L815,55 L820,55 L820,70 L840,70 L840,60 L860,60 L860,45 L870,45 L870,30 L875,30 L875,45 L880,45 L880,60 L900,60 L900,65 L920,65 L920,50 L930,50 L930,35 L935,35 L935,50 L940,50 L940,65 L960,65 L960,55 L980,55 L980,40 L990,40 L990,25 L995,25 L995,40 L1000,40 L1000,55 L1020,55 L1020,65 L1040,65 L1040,50 L1050,50 L1050,35 L1055,35 L1055,50 L1060,50 L1060,65 L1080,65 L1080,55 L1100,55 L1100,40 L1110,40 L1110,25 L1115,25 L1115,40 L1120,40 L1120,55 L1140,55 L1140,70 L1170,70 L1200,70 L1200,120 L0,120 Z" fill="white"/>
+  </svg>
+  <div class="city-banner-text">
+    <div class="city-name">Shenyang</div>
+    <div class="city-sub">Liaoning Province · China · November 12, 2026</div>
+    <div class="city-credit">Photo: Michael Myers / Unsplash</div>
+  </div>
+</div>
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-badge">10th Edition · ICDM 2026</div>
     <h1>IncrLearn — Incremental and Continual Learning<br><em>in the Age of Large-Scale AI</em></h1>
-    <p class="hero-sub">In Conjunction with the <strong>25th IEEE International Conference on Data Mining (ICDM 2026)</strong></p>
-    <p class="hero-sub">Workshop Date: <strong>November 12, 2026</strong> — Location TBA</p>
+    <p class="hero-sub">In Conjunction with the <strong>25th IEEE International Conference on Data Mining (<a href="http://icdm2026.neu.edu.cn/" target="_blank" style="color:var(--accent)">ICDM 2026</a>)</strong></p>
+    <p class="hero-sub">Workshop Date: <strong>November 12, 2026</strong> — <strong>Shenyang, China</strong></p>
     <div class="hero-meta">
       <div class="hero-meta-item">
         <span class="label">Submission Deadline</span>
@@ -945,7 +955,7 @@
 
 <footer>
   IncrLearn 2026 — 10th ICDM Workshop on Incremental and Continual Learning &nbsp;|&nbsp;
-  <a href="https://icdm2026.org/" target="_blank">ICDM 2026</a> &nbsp;|&nbsp;
+  <a href="http://icdm2026.neu.edu.cn/" target="_blank">ICDM 2026</a> &nbsp;|&nbsp;
   Contact: <a href="mailto:lamirel@loria.fr">lamirel@loria.fr</a>
 </footer>
 
@@ -971,3 +981,50 @@
 
 </body>
 </html>
+<style>
+.city-banner {
+  width: 100%;
+  height: 200px;
+  background: url("./shenyang.jpg") center/cover no-repeat, linear-gradient(to bottom, #0a1628 0%, #162e58 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.city-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 50%, rgba(232,184,75,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 40%, rgba(74,144,217,0.15) 0%, transparent 55%);
+}
+.city-banner svg { position: absolute; bottom: 0; width: 100%; opacity: 0.2; }
+.city-banner-text { position: relative; text-align: center; }
+.city-banner-text .city-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.city-banner-text .city-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: #e8b84b;
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+}
+</style>
+<style>
+.city-credit {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.6rem;
+  letter-spacing: 0.08em;
+}
+</style>

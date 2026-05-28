@@ -1028,3 +1028,35 @@
   letter-spacing: 0.08em;
 }
 </style>
+<style>
+/* Override city banner text for better readability */
+.city-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%);
+}
+.city-banner-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.8);
+}
+.city-banner-text .city-name {
+  font-weight: 700 !important;
+  font-size: 2.6rem !important;
+  letter-spacing: 0.2em !important;
+  color: #ffffff !important;
+}
+.city-banner-text .city-sub {
+  font-size: 0.82rem !important;
+  color: #f5d07a !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  opacity: 1 !important;
+}
+.city-credit {
+  color: rgba(255,255,255,0.65) !important;
+  font-size: 0.65rem !important;
+}
+</style>

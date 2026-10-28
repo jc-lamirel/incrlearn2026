@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncrLearn 2026 — Program</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628;
+      --blue: #1a3a6e;
+      --accent: #e8b84b;
+      --accent2: #4a90d9;
+      --light: #f4f6fa;
+      --text: #1a2340;
+      --muted: #5a6a8a;
+      --border: #d0d8e8;
+      --white: #ffffff;
+      --card: #eef2f9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: var(--blue); }
+
+    .sheet {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: var(--white);
+      box-shadow: 0 6px 30px rgba(10,22,40,0.12);
+    }
+
+    /* ── HEADER BAND ───────────────────────────── */
+    .band {
+      background:
+        linear-gradient(120deg, rgba(10,22,40,0.92) 0%, rgba(13,35,71,0.82) 50%, rgba(29,74,138,0.62) 100%),
+        url("./shenyang_band.jpg") center/cover no-repeat,
+        var(--navy);
+      color: var(--white);
+      padding: 2.4rem 3rem 2.2rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--accent);
+    }
+    .band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.035) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.035) 40px);
+    }
+    .band > * { position: relative; }
+    .band h1, .band .subtitle { text-shadow: 0 2px 10px rgba(0,0,0,0.45); }
+    .credit {
+      position: absolute; right: 1.2rem; bottom: 0.6rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.08em; color: rgba(255,255,255,0.55);
+    }
+    .top-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+    .conf {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600; font-size: 0.85rem; line-height: 1.25;
+      padding-right: 1rem; border-right: 1px solid rgba(255,255,255,0.35);
+    }
+    .conf span { color: var(--accent); }
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent); border: 1.5px solid var(--accent);
+      padding: 0.3rem 0.8rem;
+    }
+    .band h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;
+    }
+    .band h1 em { font-style: normal; color: var(--accent); }
+    .band .subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      font-weight: 300; margin-top: 0.6rem; max-width: 760px;
+      color: rgba(255,255,255,0.9);
+    }
+    .facts { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.6rem; }
+    .fact {
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.07);
+      border-radius: 6px;
+      padding: 0.55rem 1rem;
+    }
+    .fact .k {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .fact .v { font-weight: 600; font-size: 1.05rem; }
+
+    /* ── BODY ──────────────────────────────────── */
+    .body { padding: 2.2rem 3rem 2.4rem; }
+    .grid { display: grid; grid-template-columns: 0.9fr 1.35fr; gap: 2.6rem; }
+
+    .h {
+      display: flex; align-items: center; gap: 0.9rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.86rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 1rem;
+    }
+    .h::after { content: ''; flex: 1; height: 1.5px; background: var(--border); }
+
+    .about p { font-size: 0.97rem; margin-bottom: 0.8rem; }
+    .about p em { color: var(--blue); }
+    .about p.lead { font-size: 1.08rem; }
+    .about p, .highlights li, .callout p { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+    .about p strong { color: var(--navy); }
+    .highlights { list-style: none; margin: 0 0 0.9rem; }
+    .highlights li {
+      position: relative; padding-left: 1.2rem; margin-bottom: 0.55rem;
+      font-size: 0.93rem;
+    }
+    .highlights li::before {
+      content: ''; position: absolute; left: 0; top: 0.55rem;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+    }
+    .highlights li b { color: var(--navy); }
+
+    .callout {
+      background: var(--card); border-left: 4px solid var(--accent);
+      border-radius: 6px; padding: 1rem 1.2rem; margin: 1.4rem 0 1.8rem;
+    }
+    .callout strong { display: block; font-size: 1.05rem; color: var(--navy); margin-bottom: 0.25rem; }
+    .callout p { font-size: 0.88rem; color: var(--muted); }
+
+    .people { display: grid; grid-template-columns: 1fr; gap: 0.9rem; margin-bottom: 1.8rem; }
+    .person { display: flex; gap: 0.8rem; align-items: center; }
+    .avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--navy); color: var(--accent);
+      font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      border: 2px solid var(--accent);
+    }
+    .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+    .avatar.photo { background: var(--white); padding: 0; overflow: hidden; }
+    .person b { display: block; font-size: 0.95rem; color: var(--navy); line-height: 1.25; }
+    .person small { color: var(--muted); font-size: 0.8rem; line-height: 1.3; display: block; }
+
+    /* ── TIMELINE ──────────────────────────────── */
+    .timeline { list-style: none; position: relative; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 7.15rem; top: 0.6rem; bottom: 0.6rem;
+      width: 2px; background: var(--border);
+    }
+    .slot { display: grid; grid-template-columns: 6.4rem 1.5rem 1fr; align-items: start; margin-bottom: 1.05rem; }
+    .time {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem; font-weight: 600; color: var(--blue);
+      padding-top: 0.2rem; white-space: nowrap;
+    }
+    .dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--blue); margin: 0.35rem 0 0 0.45rem;
+      position: relative; z-index: 1;
+    }
+    .slot.keynote .dot { background: var(--accent); box-shadow: 0 0 0 3px rgba(232,184,75,0.3); }
+    .slot.light .dot { background: var(--white); border: 2px solid var(--blue); }
+    .what .title { font-weight: 700; font-size: 1.08rem; color: var(--navy); }
+    .what .meta { font-size: 0.82rem; color: var(--muted); }
+
+    .talk {
+      margin-top: 0.55rem;
+      background: var(--card);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 0.8rem 1rem;
+    }
+    .spk { display: flex; gap: 0.9rem; align-items: center; }
+    .spk img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); flex-shrink: 0; }
+    .talk.paper { border-left-color: var(--accent2); }
+    .talk .t { font-weight: 600; color: var(--blue); line-height: 1.35; }
+    .talk .t.tba { font-style: italic; font-weight: 400; color: var(--muted); }
+    .talk .s { font-size: 0.86rem; margin-top: 0.3rem; }
+    .talk .s b { color: var(--navy); }
+    .talk .id {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+      color: var(--muted); letter-spacing: 0.06em;
+    }
+    .pill {
+      display: inline-block; vertical-align: middle;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.12rem 0.5rem; border-radius: 999px; margin-left: 0.4rem;
+    }
+    .pill.onsite { background: #e1ecf9; color: var(--blue); }
+    .pill.online { background: #fbefd2; color: #7a5a10; }
+
+    .note { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+
+    /* ── PAPERS ────────────────────────────────── */
+    .papers { margin-top: 2.2rem; }
+    .papers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+    .paper-item { border-top: 1.5px dashed var(--border); padding-top: 0.9rem; }
+    .paper-item .pt { font-weight: 700; color: var(--blue); line-height: 1.35; }
+    .paper-item .pa { font-size: 0.86rem; color: var(--muted); margin-top: 0.3rem; }
+
+    /* ── FOOTER ────────────────────────────────── */
+    .foot {
+      background: var(--navy); color: rgba(255,255,255,0.8);
+      padding: 1rem 3rem; font-size: 0.8rem;
+      display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .foot b { color: var(--white); }
+    .foot a { color: var(--accent); }
+
+    .back {
+      max-width: 1000px; margin: 1.2rem auto -1rem; padding: 0 0.2rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem;
+    }
+    .back { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .back a { color: var(--blue); text-decoration: none; }
+    .back a.pdf {
+      background: var(--navy); color: var(--accent);
+      padding: 0.4rem 0.9rem; border-radius: 4px; font-weight: 600;
+    }
+    .back a.pdf:hover { background: var(--blue); text-decoration: none; }
+    .back a:hover { text-decoration: underline; }
+
+    @media (max-width: 800px) {
+      .sheet { margin: 0; }
+      .band, .body { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .foot { padding: 1rem 1.2rem; }
+      .grid, .papers-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+      .back { margin: 0.8rem 1rem 0.6rem; }
+      .timeline::before { left: 5.85rem; }
+      .slot { grid-template-columns: 5.1rem 1.5rem 1fr; }
+      .time { font-size: 0.74rem; white-space: normal; }
+    }
+    @media print {
+      body { background: #fff; }
+      .back { display: none; }
+      .sheet { margin: 0; box-shadow: none; max-width: none; }
+      .band, .foot, .avatar, .dot, .talk, .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="back"><a href="./index.html">← Back to the IncrLearn 2026 website</a><a class="pdf" href="./IncrLearn2026_program.pdf" download>⤓ Download the program (PDF, A4)</a></div>
+
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="band">
+    <div class="top-row">
+      <div class="conf">IEEE <span>ICDM</span><br>2026</div>
+      <div class="tag">Workshop Program</div>
+    </div>
+    <h1>IncrLearn <em>2026</em></h1>
+    <p class="subtitle">10th International Workshop on Incremental and Continual Learning in the Age of Large-Scale AI</p>
+    <div class="facts">
+      <div class="fact"><span class="k">Date</span><span class="v">Thursday, November 12, 2026</span></div>
+      <div class="fact"><span class="k">Time</span><span class="v">13:00 – 15:30 <small style="font-weight:400;opacity:.75">(local time, UTC+8)</small></span></div>
+      <div class="fact"><span class="k">Venue</span><span class="v">Shenyang, China · Room Seoul</span></div>
+    </div>
+    <div class="credit">Shenyang · Photo: Michael Myers / Unsplash</div>
+  </div>
+
+  <div class="body">
+    <div class="grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="about">
+        <div class="h">About</div>
+        <p class="lead"><em>How do you teach a system that never stops learning, on data that never stops changing?</em></p>
+        <p>Data streams drift, user behaviour changes and knowledge goes out of date, while the large models now deployed everywhere are trained once and expected to stay relevant. Learning <strong>continuously</strong> — integrating new information without forgetting what is already known and without retraining from scratch — has become a central problem in AI.</p>
+        <p>Since 2013, <strong>IncrLearn</strong> has gathered the ICDM community working on this problem, from incremental clustering, concept drift and novelty detection to continual learning for large language models and foundation models.</p>
+        <p>The <strong>10th edition</strong> features:</p>
+        <ul class="highlights">
+          <li><b>Two invited talks</b>, by Eirini Ntoutsi and Elena Mocanu;</li>
+          <li><b>Two contributed papers</b>, on data-free merging of model updates and on parameter reuse for continual offline reinforcement learning;</li>
+          <li><b>An open discussion</b> on the future of the series and the associated journal special issue.</li>
+        </ul>
+
+        <div class="h" style="margin-top:1.8rem">Invited Speakers</div>
+        <div class="people">
+          <div class="person">
+            <div class="avatar photo"><img src="./ntoutsi.jpg" alt="Eirini Ntoutsi"></div>
+            <div><b>Prof. Dr. Eirini Ntoutsi</b><small>Research Institute CODE · AIML Lab<br>Universität der Bundeswehr München, Germany</small></div>
+          </div>
+          <div class="person">
+            <div class="avatar photo"><img src="./mocanu.jpg" alt="Elena Mocanu"></div>
+            <div><b>Dr. Elena Mocanu</b><small>University of Twente, Netherlands</small></div>
+          </div>
+        </div>
+
+        <div class="h">Organizers</div>
+        <div class="people">
+          <div class="person"><div class="avatar photo"><img src="./lamirel.jpg" alt="Jean-Charles Lamirel"></div><div><b>Jean-Charles Lamirel</b><small>LORIA · Université de Strasbourg, France</small></div></div>
+          <div class="person"><div class="avatar photo"><img src="./cuxac.jpg" alt="Pascal Cuxac"></div><div><b>Pascal Cuxac</b><small>INIST-CNRS, France</small></div></div>
+          <div class="person"><div class="avatar photo"><img src="./roveri.jpg" alt="Manuel Roveri"></div><div><b>Manuel Roveri</b><small>Politecnico di Milano, Italy</small></div></div>
+          <div class="person"><div class="avatar photo"><img src="./bifet.jpg" alt="Albert Bifet"></div><div><b>Albert Bifet</b><small>IP Paris, France · University of Waikato, NZ</small></div></div>
+          <div class="person"><div class="avatar photo"><img src="./hammer.jpg" alt="Barbara Hammer"></div><div><b>Barbara Hammer</b><small>Bielefeld University, Germany</small></div></div>
+          <div class="person"><div class="avatar photo"><img src="./pechenizkiy.jpg" alt="Mykola Pechenizkiy"></div><div><b>Mykola Pechenizkiy</b><small>TU/e Eindhoven, Netherlands</small></div></div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN : SCHEDULE -->
+      <div>
+        <div class="h">Schedule · Thu, Nov 12</div>
+        <ol class="timeline">
+
+          <li class="slot">
+            <div class="time">13:00 – 13:10</div><div class="dot"></div>
+            <div class="what">
+              <div class="title">Welcome &amp; Opening</div>
+              <div class="meta">Jean-Charles Lamirel, on behalf of the organizers</div>
+            </div>
+          </li>
+
+          <li class="slot keynote">
+            <div class="time">13:10 – 13:55</div><div class="dot"></div>
+            <div class="what">
+              <div class="title">Invited Talk I</div>
+              <div class="meta">45 min, including Q&amp;A</div>
+              <div class="talk">
+                <div class="spk"><img src="./ntoutsi.jpg" alt=""><div><div class="t tba">Title to be announced</div>
+                <div class="s"><b>Prof. Dr. Eirini Ntoutsi</b> · Research Institute CODE, AIML Lab, Universität der Bundeswehr München</div></div></div>
+              </div>
+            </div>
+          </li>
+
+          <li class="slot">
+            <div class="time">13:55 – 14:15</div><div class="dot"></div>
+            <div class="what">
+              <div class="title">Paper Presentation <span class="pill onsite">On site</span></div>
+              <div class="meta">20 min, including Q&amp;A</div>
+              <div class="talk paper">
+                <div class="t">What Survives a Merge? Auditing Data-Free Composition of Domain and Task Updates</div>
+                <div class="s">Elizaveta Sharushkina, Maria Khodorchenko</div>
+                <div class="id">Paper S40202</div>
+              </div>
+            </div>
+          </li>
+
+          <li class="slot">
+            <div class="time">14:15 – 14:35</div><div class="dot"></div>
+            <div class="what">
+              <div class="title">Paper Presentation <span class="pill online">Online</span></div>
+              <div class="meta">20 min, including Q&amp;A</div>
+              <div class="talk paper">
+                <div class="t">TSN-Affinity: Similarity-Driven Parameter Reuse for Continual Offline Reinforcement Learning</div>
+                <div class="s">Dominik Żurek, Kamil Faber, Marcin Pietroń, Paweł Gajewski, Roberto Corizzo</div>
+                <div class="id">Paper S40203</div>
+              </div>
+            </div>
+          </li>
+
+          <li class="slot keynote">
+            <div class="time">14:35 – 15:20</div><div class="dot"></div>
+            <div class="what">
+              <div class="title">Invited Talk II</div>
+              <div class="meta">45 min, including Q&amp;A</div>
+              <div class="talk">
+                <div class="spk"><img src="./mocanu.jpg" alt=""><div><div class="t tba">Title to be announced</div>
+                <div class="s"><b>Dr. Elena Mocanu</b> · University of Twente</div></div></div>
+              </div>
+            </div>
+          </li>
+
+          <li class="slot">
+            <div class="time">15:20 – 15:30</div><div class="dot"></div>
+            <div class="what">
+              <div class="title">Open Discussion &amp; Closing</div>
+              <div class="meta">Perspectives, special issue and next edition</div>
+            </div>
+          </li>
+
+        </ol>
+        <p class="note">All times are local Shenyang time (CST, UTC+8). The program may be subject to minor changes.</p>
+        <div class="callout" style="margin-top:1.6rem">
+          <strong>Hybrid session</strong>
+          <p>One paper is presented remotely. Connection details for remote participants will be provided through the ICDM 2026 conference platform.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAPERS -->
+    <div class="papers">
+      <div class="h">Accepted Papers · IEEE Xplore</div>
+      <div class="papers-grid">
+        <div class="paper-item">
+          <div class="pt">What Survives a Merge? Auditing Data-Free Composition of Domain and Task Updates</div>
+          <div class="pa">Elizaveta Sharushkina, Maria Khodorchenko</div>
+        </div>
+        <div class="paper-item">
+          <div class="pt">TSN-Affinity: Similarity-Driven Parameter Reuse for Continual Offline Reinforcement Learning</div>
+          <div class="pa">Dominik Żurek, Kamil Faber, Marcin Pietroń, Paweł Gajewski, Roberto Corizzo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div><b>IncrLearn 2026</b> · in conjunction with the 25th IEEE International Conference on Data Mining (<a href="http://icdm2026.neu.edu.cn/" target="_blank">ICDM 2026</a>)</div>
+    <div><b>Shenyang, China · Nov 12, 2026</b></div>
+  </div>
+</div>
+
+</body>
+</html>

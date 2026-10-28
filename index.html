@@ -542,6 +542,7 @@
     <div class="logo">IncrLearn<span> 2026</span></div>
     <nav>
       <a href="#home" class="active" onclick="show('home',this)">Home</a>
+      <a href="./program.html">Program</a>
       <a href="#dates" onclick="show('dates',this)">Dates</a>
       <a href="#organization" onclick="show('organization',this)">Organization</a>
       <a href="#pc" onclick="show('pc',this)">Program Committee</a>
@@ -591,6 +592,12 @@
 
 <!-- ═══ HOME ══════════════════════════════════════════════ -->
 <section id="home" class="active">
+  <a href="./program.html" style="display:block;text-decoration:none;background:var(--navy);color:#fff;border-left:5px solid var(--accent);border-radius:6px;padding:1rem 1.3rem;margin-bottom:1.75rem">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">Now available</span><br>
+    <strong style="font-size:1.1rem">Workshop program — Thursday, November 12, 2026 · 13:00–15:30</strong><br>
+    <span style="font-size:.9rem;opacity:.85">Invited talks by Eirini Ntoutsi and Elena Mocanu · two paper presentations →</span>
+  </a>
+  <p style="margin:-1.2rem 0 1.75rem;font-size:.85rem"><a href="./IncrLearn2026_program.pdf" download style="color:var(--blue);font-weight:600">⤓ Download the program as PDF (A4)</a></p>
   <div class="intro-box">
     <em>"How do you teach a system that never stops learning, on data that never stops changing?"</em>
     This question has defined the IncrLearn workshop series since its inception — and it has never been more urgent than today.
@@ -826,9 +833,15 @@
   <p style="margin-bottom:1.75rem">For this edition, we are assembling a panel of specialists with complementary expertise spanning classical incremental learning, continual learning for foundation models, and responsible/explainable AI for evolving systems.</p>
 
   <div class="guest-card">
+    <h3>Eirini Ntoutsi</h3>
+    <div class="affil">Research Institute CODE, AIML Lab — Universität der Bundeswehr München, Germany</div>
+    <p>Confirmed invited speaker at IncrLearn 2026 (opening talk). See the <a href="./program.html">workshop program</a>.</p>
+  </div>
+
+  <div class="guest-card">
     <h3>Elena Mocanu</h3>
     <div class="affil">University of Twente, Netherlands</div>
-    <p>Expert in sparse and dynamic neural network architectures, evolving deep learning, and learning from data streams. Invited speaker at IncrLearn 2024.</p>
+    <p>Expert in sparse and dynamic neural network architectures, evolving deep learning, and learning from data streams. Invited speaker at IncrLearn 2024; confirmed invited speaker at IncrLearn 2026 (closing talk).</p>
   </div>
 
   <div class="guest-card">
@@ -979,6 +992,13 @@
   });
 </script>
 
+<style>
+/* Keep the 8 menu items on one line */
+@media (min-width: 1040px) {
+  nav { flex-wrap: nowrap !important; }
+  nav a { padding-left: 0.55rem !important; padding-right: 0.55rem !important; letter-spacing: 0.03em !important; font-size: 0.76rem !important; white-space: nowrap; }
+}
+</style>
 </body>
 </html>
 <style>
